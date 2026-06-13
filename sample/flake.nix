@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixbuild.url = "github:ChickenChunk579/NixBuild";
+    nixbuild.url = "path:..";
   };
 
   outputs = { self, nixpkgs, nixbuild }:
@@ -12,7 +12,7 @@
       forEachSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f nixpkgs.legacyPackages.${system});
 
       myProject = nixbuild.lib.mkProject {
-        name = "my-local-project";
+        name = "sample";
 
         toolchain = {
           cc = "gcc";
@@ -52,4 +52,5 @@
         };
       });
     };
+
 }

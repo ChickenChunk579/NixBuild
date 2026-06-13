@@ -92,9 +92,8 @@ define LOG
 endef
 
 NIX_FILES := $(shell find flake.nix nb/ -type f 2>/dev/null)
-TIME_STAMP_FILE := build/.nixbuild.time
 
-all: $(TIME_STAMP_FILE) ${lib.concatStringsSep " " allTargetOutputs}
+all: ${lib.concatStringsSep " " allTargetOutputs}
 
 ${lib.concatStringsSep "\n" allTargetRules}
 clean:
@@ -104,12 +103,6 @@ clean:
 ifneq ($(MAKECMDGOALS),clean)
 -include ${allDepFilesStr}
 endif
-
-$(TIME_STAMP_FILE): $(NIX_FILES)
-	@mkdir -p $(dir $@)
-	@$(call LOG,NIX,flake.nix.#makefile)
-	@nix build .#makefile
-	@touch $@
 '';
     in {
       files = {
